@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дневник путешествий</title>
+
+<!-- Подключение шрифтов -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zvin+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">
+      <h1>Дневник путешествий</h1>
+      <p>Храните воспоминания о поездках</p>
+    </div>
+
+    <nav class="tabs">
+      <button data-tab="list" class="active">Мои поездки</button>
+      <button data-tab="add" id="tab-add-btn">Добавить поездку</button>
+      <button data-tab="stats">Статистика</button>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Секция списка поездок -->
+  <section id="sec-list" class="section active">
+    <div id="trips-container"></div>
+  </section>
+
+  <!-- Секция детального просмотра -->
+  <section id="sec-detail" class="section">
+    <div class="detail-card" id="detail-content"></div>
+  </section>
+
+  <!-- Секция добавления/редактирования поездки -->
+  <section id="sec-add" class="section">
+    <form id="trip-form" novalidate>
+      <div class="form-header">
+        <h2 id="form-title">Новая поездка</h2>
+        <span class="edit-badge" id="edit-badge" style="display:none;">Режим редактирования</span>
+      </div>
+
+      <div class="form-row">
+        <label for="country">Страна *</label>
+        <input type="text" id="country" placeholder="Например: Франция" autocomplete="off">
+        <div class="error-msg" id="err-country">Только буквы, 2–50 символов</div>
+      </div>
+
+      <div class="form-row">
+        <label for="city">Город *</label>
+        <input type="text" id="city" placeholder="Например: Париж" autocomplete="off">
+        <div class="error-msg" id="err-city">Только буквы, 2–50 символов</div>
+      </div>
+
+      <div class="form-row">
+        <label for="startDate">Дата начала * (ДД-ММ-ГГГГ)</label>
+        <input type="text" id="startDate" placeholder="01-06-2024" autocomplete="off">
+        <div class="error-msg" id="err-startDate">Введите дату в формате ДД-ММ-ГГГГ</div>
+      </div>
+
+      <div class="form-row">
+        <label for="endDate">Дата окончания * (ДД-ММ-ГГГГ)</label>
+        <input type="text" id="endDate" placeholder="10-06-2024" autocomplete="off">
+        <div class="error-msg" id="err-endDate">Дата не может быть раньше начала</div>
+      </div>
+
+      <div class="duration-info" id="duration-info"></div>
+
+      <div class="form-row">
+        <label>Фотографии</label>
+        <div class="photo-input-row">
+          <input type="text" id="photo-input" placeholder="https://example.com/photo.jpg">
+          <button type="button" class="btn btn-ghost" id="add-photo-btn">Добавить ссылку</button>
+          <input type="file" id="photo-file-input" accept="image/*" multiple style="display:none;">
+          <button type="button" class="btn btn-ghost" id="upload-photo-btn">Загрузить с устройства</button>
+        </div>
+        <div class="photo-list" id="photo-list"></div>
+      </div>
+
+      <div class="form-row">
+        <label for="impressions">Впечатления</label>
+        <textarea id="impressions" placeholder="Что вам запомнилось?"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="submit-btn">Сохранить поездку</button>
+      <button type="button" class="btn btn-ghost" id="clear-draft">Очистить</button>
+      <button type="button" class="btn btn-ghost" id="cancel-edit" style="display:none;">Отмена</button>
+    </form>
+  </section>
+
+  <!-- Секция статистики -->
+  <section id="sec-stats" class="section">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="num" id="stat-trips">0</div>
+        <div class="lbl">Поездок</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="stat-countries">0</div>
+        <div class="lbl">Стран</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="stat-cities">0</div>
+        <div class="lbl">Городов</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="stat-days">0</div>
+        <div class="lbl">Всего дней</div>
+      </div>
+    </div>
+
+    <div class="stat-lists">
+      <div class="stat-list">
+        <h3>Уникальные страны</h3>
+        <ul id="list-countries"></ul>
+      </div>
+      <div class="stat-list">
+        <h3>Уникальные города</h3>
+        <ul id="list-cities"></ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Лайтбокс -->
+<div class="lightbox" id="lightbox">
+  <button class="close" id="lightbox-close">&times;</button>
+  <img id="lightbox-img" src="" alt="Фото">
+</div>
+<script src="script.js"></script>
+</body>
+</html>
